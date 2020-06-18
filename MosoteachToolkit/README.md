@@ -1,5 +1,8 @@
 # 🧰 蓝墨云工具包 Mosoteach Toolkit
 
+<a class="install-link" href="./MosoteachToolkit.js">点击安装</a>
+
+
 ## 主要功能：
 
 - 界面
