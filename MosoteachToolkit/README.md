@@ -1,7 +1,6 @@
 # 🧰 蓝墨云工具包 Mosoteach Toolkit
 
-<a class="install-link" href="./MosoteachToolkit.js">点击安装</a>
-
+[![Greasy Fork](https://greasyfork.org/assets/blacklogo96-1221dbbb8f0d47a728f968c35c2e2e03c64276a585b8dceb7a79a17a3f350e8a.png)](https://greasyfork.org/scripts/386771-%E8%93%9D%E5%A2%A8%E4%BA%91%E5%B7%A5%E5%85%B7%E7%AE%B1-mosoteach-toolkit/code/%F0%9F%A7%B0%E8%93%9D%E5%A2%A8%E4%BA%91%E5%B7%A5%E5%85%B7%E7%AE%B1%20Mosoteach%20Toolkit.user.js)
 
 ## 主要功能：
 
