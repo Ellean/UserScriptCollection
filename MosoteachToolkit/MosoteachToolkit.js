@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         🧰蓝墨云工具箱 Mosoteach Toolkit
 // @namespace    https://blog.younnt.one
-// @version      1.4.5
+// @version      1.4.6
 // @license      MIT
 // @description  让蓝墨云更加强大、易用！Make Mosoteach more powerful & user-friendly !
 // @author       Younntone
