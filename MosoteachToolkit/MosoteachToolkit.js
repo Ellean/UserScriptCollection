@@ -91,12 +91,6 @@
 
       const id = a.prop('search').split('&id=')[1].split('&')[0];
 
-      const quizTitle = $('.manager-active-name-length')[0].innerText;
-      const quizCollection = $('.view-quiz-row');
-      const quizAnswerCollection = $('.answer-box');
-      let quizList = [];
-      let answerList = {};
-
       if (m === 'reply') {
         $('[style="text-align:center;"]').attr(
           'style',
@@ -197,55 +191,6 @@
         // 挂载 按钮节点
         document.body.appendChild(copyButton);
       } else {
-        // 获取 所有题目
-        for (
-          let quizIndex = 0;
-          quizIndex < quizCollection.length;
-          quizIndex++
-        ) {
-          const quiz = quizCollection[quizIndex];
-          const num =
-            quiz.children[0].children[0].children[0].children[0].innerHTML;
-          const question =
-            quiz.children[0].children[0].children[0].children[1].children[2]
-              .children[0].innerText;
-          const optionCount =
-            quiz.children[0].children[0].children[2].childElementCount;
-          let options = [];
-
-          // 获取 该题所有选项
-          for (let optionIndex = 0; optionIndex < optionCount; optionIndex++) {
-            const optionMark =
-              quiz.children[0].children[0].children[2].children[optionIndex]
-                .children[0].innerText;
-            const option =
-              quiz.children[0].children[0].children[2].children[optionIndex]
-                .children[2].innerText;
-            options.push(`
-         ${optionMark}. ${option}`);
-          }
-
-          // 获取 答案
-          let re = /[A-Z]\s/g;
-          let answer = quizAnswerCollection[quizIndex * 2].innerHTML
-            .match(re)
-            .map((str) => str.replace(' ', ''));
-
-          quizList.push(`
-   
-   
-       ${num}. ${question}  ${answer}
-       ${options}`);
-
-          answerList[question] = answer;
-        }
-
-        // 整理内容
-        var detail = `题目标题: ${quizTitle}
-   题目总数: ${quizCollection.length}
-   题目: ${quizList}
-   `;
-
         let _answersList = JSON.parse(window.localStorage.getItem(id));
 
         // 创建 按钮节点
@@ -260,17 +205,7 @@
             'width: fit-content;padding: 30px;height: 50px;position: fixed;top: 400px;left: 30px;background-color: red;';
         }
         copyButton.addEventListener('click', function () {
-          var oInput = document.createElement('textarea');
-          oInput.value = detail;
-          document.body.appendChild(oInput);
-          oInput.select();
-          document.execCommand('Copy');
-          oInput.className = 'oInput';
-          oInput.style.display = 'none';
-          alert('已复制到粘贴板');
-          window.localStorage.setItem(id, JSON.stringify(answerList));
-          copyButton.style =
-            'width: fit-content;padding: 30px;height: 50px;position: fixed;top: 400px;left: 30px;background-color: green;';
+          getQuiz(id);
         });
 
         // 挂载 按钮节点
@@ -333,4 +268,63 @@
     default:
       break;
   }
+
+  const getQuiz = (id) => {
+    const quizTitle = $('.info-con')[0].children[0].innerText;
+    const quizCollection = $('.topic-item');
+    const quizAnswerCollection = $('.answer-l');
+    let quizList = [];
+    let answerList = {};
+    // 获取 所有题目
+    for (let quizIndex = 0; quizIndex < quizCollection.length; quizIndex++) {
+      const quiz = quizCollection[quizIndex];
+      const num = quiz.children[0].children[0].innerHTML;
+      const question =
+        quiz.children[0].children[1].children[1].children[0].innerText;
+      const optionCount =
+        quiz.children[0].children[1].children[2].childElementCount;
+      let options = [];
+
+      // 获取 该题所有选项
+      for (let optionIndex = 0; optionIndex < optionCount; optionIndex++) {
+        const optionMark =
+          quiz.children[0].children[1].children[2].children[optionIndex]
+            .children[0].innerText;
+        const option =
+          quiz.children[0].children[1].children[2].children[optionIndex]
+            .children[1].innerText;
+        options.push(`
+             ${optionMark} ${option}`);
+      }
+
+      // 获取 答案
+      let answer = quizAnswerCollection[quizIndex].children[0].innerHTML;
+
+      quizList.push(`
+       
+       
+           ${num}. ${question}  ${answer}
+           ${options}`);
+
+      answerList[question] = answer;
+    }
+
+    // 整理内容
+    var detail = `题目标题: ${quizTitle}
+       题目总数: ${quizCollection.length}
+       题目: ${quizList}
+       `;
+
+    var oInput = document.createElement('textarea');
+    oInput.value = detail;
+    document.body.appendChild(oInput);
+    oInput.select();
+    document.execCommand('Copy');
+    oInput.className = 'oInput';
+    oInput.style.display = 'none';
+    alert('已复制到粘贴板');
+    window.localStorage.setItem(id, JSON.stringify(answerList));
+    copyButton.style =
+      'width: fit-content;padding: 30px;height: 50px;position: fixed;top: 400px;left: 30px;background-color: green;';
+  };
 })();
